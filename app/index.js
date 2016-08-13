@@ -1,4 +1,6 @@
-require('./js/index.js')
-require('./js/room.js')
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-require('./views/room.html')
+import App from './components/App';
+
+ReactDOM.render(<App />, document.getElementById('app'));

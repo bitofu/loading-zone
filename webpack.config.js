@@ -2,8 +2,8 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    javascript: "./app/index.js",
     html: "./app/index.html",
+    javascript: "./app/index.js"
   },
 
   output: {
@@ -22,7 +22,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader'] },
+        loaders: ['react-hot', 'babel-loader'] },
       { test: /\.html$/,
         loader: 'file?name=[name].[ext]' },
       { test: /\.css$/,

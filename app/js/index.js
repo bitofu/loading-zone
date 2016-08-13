@@ -3,14 +3,20 @@ document.addEventListener("DOMContentLoaded", function(e) {
     event.preventDefault;
 
     var name = document.getElementById('room-name').value;
-    console.log(name)
-    fetch(window.location.href + 'create-room/?room=' + name)
-      .then((res) => {
-
-      })
-      .catch((err) => {
-        console.log('Creating Room Fetch Error :-S', err);
-      });
+    window.location.replace(name)
+    // fetch(window.location.href + 'create-room/?room=' + name)
+    //   .then((res) => {
+    //     if (res.status !== 200) {
+    //       // do error stuff
+    //       console.log('Looks like there was a problem creating a room. Status Code: ' + response.status);
+    //       return
+    //     };
+    //     res.redirect('/' + name)
+    //     return
+    //   })
+    //   .catch((err) => {
+    //     console.log('Creating Room Fetch Error :-S', err);
+    //   });
     return false;
   };
 });
