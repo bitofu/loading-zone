@@ -1,14 +1,28 @@
 import React from 'react';
+import CreateRoom from './CreateRoom';
+import Room from './Room';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ''
+    };
+  };
+
+  componentWillMount() {
+    this.setState({
+      name: window.location.pathname.slice(1)
+    });
+  };
+
   render() {
     return(
       <div className='container'>
-        <h2>Get started by entering a room name:</h2>
-        <form id="room-namer">
-          <input type="text" id="room-name" name="room-name" placeholder="name name name" />
-          <input type="submit" value="Create" />
-        </form>
+        { this.state.name ?
+          <Room name={this.state.name} /> :
+          <CreateRoom />
+        }
       </div>
     );
   };
