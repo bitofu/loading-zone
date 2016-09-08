@@ -5,7 +5,6 @@ var io = require('socket.io')(http);
 var ioNamespaces = []; // all active socket.io namespaces
 
 app.set('port', process.env.PORT || 3000);
-app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/*', function(req, res) {
@@ -23,8 +22,12 @@ http.listen(app.get('port'), function() {
 function generateNamespace(nsp) {
   return(
     io.of(nsp).on('connection', function(socket) {
-      socket.on('user-in', function() {
-        console.log('connected bruuh to', socket)
+      socket.on('user:join', function(data) {
+        console.log('connected a client to', nsp)
+      });
+
+      socket.on('user:message', function(data) {
+        io.of(nsp).emit('room:message', data);
       });
     })
   );
