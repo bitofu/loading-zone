@@ -1,39 +1,36 @@
 import React from 'react';
+import MessageList from './MessageList';
+import MessageInput from './MessageInput';
+
 var socket = io(window.location.pathname);
-var clientSocket = require('../js/client-socket')(socket);
 
 class Room extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { message: '' };
+    this.state = { messages: [] };
   };
 
   componentWillMount() {
-    clientSocket.init();
+    socket.emit('user:join', { room: window.location.pathname, message: 'hi there from ' + socket.id });
+    socket.on('room:message', this.receiveMessage.bind(this));
   };
 
-  updateMessage(e) {
-    this.setState({
-      message: e.target.value
-    });
+  receiveMessage(message) {
+    let newMessages = this.state.messages;
+    newMessages.push(message);
+    this.setState({ messages: newMessages });
   };
 
-  handleSubmit(e) {
-    e.preventDefault();
-    clientSocket.sendMessage({ message: this.state.message });
-    this.setState({ message: '' });
+  handleMessageSubmit(message) {
+    socket.emit('user:message', message);
     return false;
   };
 
   render() {
     return(
-      <div className='chatroom'>
-        <p>hi</p>
-        <div className='messages'></div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input name='message' value={this.state.message} onChange={this.updateMessage.bind(this)} />
-          <button type='submit'>Send</button>
-        </form>
+      <div className='chat-room'>
+        <MessageList messages={this.state.messages} />
+        <MessageInput onMessageSubmit={this.handleMessageSubmit} />
       </div>
     );
   };

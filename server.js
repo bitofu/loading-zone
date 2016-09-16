@@ -26,8 +26,8 @@ function generateNamespace(nsp) {
         console.log('connected a client to', nsp)
       });
 
-      socket.on('user:message', function(data) {
-        io.of(nsp).emit('room:message', data);
+      socket.on('user:message', function(message) {
+        io.of(nsp).emit('room:message', message);
       });
     })
   );
