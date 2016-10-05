@@ -19,7 +19,7 @@ class MessageInput extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className='message-input'>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input name='message' value={this.state.text} onChange={this.updateMessage.bind(this)} />
           <button type='submit'>Send</button>

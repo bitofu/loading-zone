@@ -16,14 +16,15 @@ class CreateRoom extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    window.location.replace(this.state.name);
+    window.location = this.state.name;
     return false;
   };
 
   render() {
     return(
       <div className='container'>
-        <h2>Get started by entering a room name:</h2>
+        <h2>Online Clipboard and FTP</h2>
+        <h3>Get started by entering a room name:</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input name='room-name' onChange={this.updateName.bind(this)} />
           <button type='submit'>Create</button>
